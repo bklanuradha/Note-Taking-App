@@ -16,7 +16,7 @@ window.onload = updateTable;
 form.addEventListener('submit', addNote);
 
 // for search
-search,addEventListener('keyup', searchNotes)
+search.addEventListener('keyup', searchNotes);
 
 // functions
 
@@ -91,5 +91,23 @@ function addNote(e){
 
 // Search notes
 function searchNotes(e){
+    // Text to lower case
+    var searchTxt = e.target.value.toLowerCase();
+
+    // Get list
+    var list = items.getElementsByClassName('items');
     
+    // Conver to an array
+    var listArr = Array.from(list);
+    listArr.forEach(function(item){
+        // Get Title
+        var noteTitle = item.firstChild.textContent;
+        // match
+        if(noteTitle.toLowerCase().indexOf(searchTxt) != -1){
+            item.style.display = '';
+        }
+        else{
+            item.style.display = 'none';
+        }
+    });
 }
