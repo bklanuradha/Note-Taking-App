@@ -13,10 +13,14 @@ var newNote = '';
 // for page loads
 window.onload = updateTable;
 
+// for form submit
 form.addEventListener('submit', addNote);
 
 // for search
 search.addEventListener('keyup', searchNotes);
+
+// for remove
+items.addEventListener('click', removeNote);
 
 // functions
 
@@ -95,7 +99,7 @@ function searchNotes(e){
     var searchTxt = e.target.value.toLowerCase();
 
     // Get list
-    var list = items.getElementsByClassName('items');
+    var list = items.getElementsByClassName('item');
     
     // Conver to an array
     var listArr = Array.from(list);
@@ -110,4 +114,22 @@ function searchNotes(e){
             item.style.display = 'none';
         }
     });
+}
+
+// remove note
+function removeNote(e){
+    if(e.target.id === 'del'){
+        if(confirm("Are you sure?")){
+            // Delete Notes
+            var tr = e.target.parentElement.parentElement;
+            items.remove(tr);
+
+            // Update table
+            noteCount--;
+            if(noteCount === 0){
+                updateTable();
+            }
+        }
+    }
+
 }
