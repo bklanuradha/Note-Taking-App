@@ -5,6 +5,7 @@ var ntitle = document.getElementById('n-title');
 var nbody = document.getElementById('n-body');
 var tableDiv = document.getElementById('tbl-div');
 var search = document.getElementById('srch');
+var resetBtn = document.getElementById('reset');
 
 var noteCount = 0;
 var newNote = '';
@@ -28,6 +29,9 @@ items.addEventListener('click', removeNote);
 
 // For view and Update
 items.addEventListener('click', viewUpdateNote);
+
+// For Reset
+resetBtn.addEventListener('click', resetAll);
 
 // functions
 
@@ -111,6 +115,8 @@ function addNote(e){
 
 
     }
+    // reset All
+    resetAll();
 }
 
 // Search notes
@@ -164,4 +170,12 @@ function viewUpdateNote(e){
         nbody.value = note.lastChild.textContent;
         isUpdate = true;
     }
+}
+
+// Reset All
+function resetAll(){
+    ntitle.value = '';
+    nbody.value = '';
+    isUpdate = false;
+    newNote = '';
 }
