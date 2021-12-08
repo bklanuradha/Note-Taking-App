@@ -8,6 +8,10 @@ var search = document.getElementById('srch');
 
 var noteCount = 0;
 var newNote = '';
+var isUpdate = false;
+var record = '';
+var note = '';
+var body = '';
 
 // events
 // for page loads
@@ -22,6 +26,9 @@ search.addEventListener('keyup', searchNotes);
 // for remove
 items.addEventListener('click', removeNote);
 
+// For view and Update
+items.addEventListener('click', viewUpdateNote);
+
 // functions
 
 // update table
@@ -29,7 +36,20 @@ function updateTable(){
     // Display the table when notes get added
     if (noteCount > 0){
         tableDiv.style.display = '';
-        items.appendChild(newNote);
+
+        // Update Note
+        if(isUpdate){
+            note.firstChild.textContent = ntitle.value;
+            note.lastChild.textContent = nbody.value;
+
+            // reset update and notecount
+            isUpdate = false;
+            noteCount--;
+        }
+        // Add new note
+        else{
+            items.appendChild(newNote);
+        }
     }
     else{
         tableDiv.style.display = 'none';
@@ -132,4 +152,16 @@ function removeNote(e){
         }
     }
 
+}
+
+// View and update Note
+function viewUpdateNote(e){
+    if(e.target.id === 'vw'){
+        // get the element values & update input fields
+        record = e.target.parentElement.parentElement;
+        note = record.firstChild;
+        ntitle.value = note.firstChild.textContent;
+        nbody.value = note.lastChild.textContent;
+        isUpdate = true;
+    }
 }
